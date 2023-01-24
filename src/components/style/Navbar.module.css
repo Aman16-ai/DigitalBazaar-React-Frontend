@@ -26,7 +26,7 @@
     color: white;
     margin-left: 10px;
     cursor: pointer;
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 .user {
@@ -38,21 +38,64 @@
 }
 
 .user-list-items {
-    min-width: 160px;
+    width: 200px;
     position: absolute;
     background-color: white;
     box-shadow: "0px 4px 16px rgba(0, 0, 0, 0.13)";
     z-index: 1;
     display: none;
     cursor: pointer;
+    /* transition-delay: 5s; */
     /* margin-top: 15px; */
 }
 
 .user:hover .user-list-items {
     display: block;
+    
 
 }
 #search:focus {
     outline-style: none;
     box-shadow: none;
+}
+
+.user-list-items ul {
+    list-style: none;
+    
+}
+.user-list-items ul li {
+    margin-top: 10px;
+    margin-right: 20px;
+}
+.drop-down-icons {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.nav-icons {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.links {
+    align-self: center;
+    color: white;
+    text-decoration: none;
+    margin-left: 50px;
+    font-weight: 600;
+}
+.links :hover {
+    color: white;
+}
+
+#logoutBtn {
+    width: 8vw;
+    height: 5vh;
+    align-self: center;
+    margin-left: 15px;
+    background-color: white;
+    color: #2874F0;
+    border: none;
+    font-weight: bold;
+    border-radius: 2px;
 }
