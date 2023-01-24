@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { register } from '../../services/authService'
 
 export default function SignUp() {
     const [user, setUser] = useState({
@@ -19,9 +21,15 @@ export default function SignUp() {
     const handleChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
-    const handleSubmit = () => {
-        console.log(user)
-        console.log(credentials)
+    const handleSubmit = async() => {
+        console.log("running")
+        const result = await register({user:user,...credentials})
+        console.log(result)
+        if(result.success === true) {
+            localStorage.setItem("authToken",result.token.access)
+            Navigate("/")
+            window.location.reload()
+        }
     }
     return (
         <div>
