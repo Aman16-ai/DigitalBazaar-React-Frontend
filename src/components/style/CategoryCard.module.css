@@ -1,0 +1,19 @@
+.info{
+    width: 10vw;
+    height: 15vh;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.info img {
+    width: 80px;
+}
+.info link {
+    font-size: medium;
+    font-weight: 600;
+    margin-top: 0px;
+    text-decoration: none;
+}
