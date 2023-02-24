@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import style from "./style/Navbar.module.css"
 import logo from "../static/logo.png"
@@ -6,19 +6,29 @@ import ordericon from "../static/icons/ordericon.png"
 import logouticon from "../static/icons/power-off.png"
 import cartIcon from "../static/icons/carticon.png"
 import notificationIcon from "../static/icons/notificationicon.png"
+import LoginModal from './LoginModal'
 
 export default function () {
 
+    const [openLoginModal,setOpenLoginModal] = useState(false)
+
+    const handleCloseLoginModal = () => {
+        setOpenLoginModal(false)
+    }
+    const handleOpenLoginModal = () => {
+        setOpenLoginModal(true)
+    }
     const handleLogout = ()=> {
         localStorage.removeItem("authToken")
         Navigate("/login")
     }
     return (
         <div className={style['container']}>
+            <LoginModal open={openLoginModal} handleClose={handleCloseLoginModal} />
             <h4 id={style['heading']}><Link to={"/"} style={{textDecoration:"none",color:"white"}}>DigitalBazaar</Link></h4>
             
             <input type="text" name="search" id={style['search']} placeholder="Search for products, brands and more" />
-            {!localStorage.getItem("authToken")?<button id={style['logoutBtn']}>Login</button>:
+            {!localStorage.getItem("authToken")?<button onClick={handleOpenLoginModal} id={style['logoutBtn']}>Login</button>:
             <div className={style['user']}>
                 <h6 id={style['username-heading']}>AMAN</h6>
                 <div className={style['user-list-items']}>
