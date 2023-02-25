@@ -6,8 +6,21 @@ import PrivateRoute from './components/PrivateRoute';
 import Home from './pages/Home';
 import SignUp from './pages/Authentication/SignUp';
 import Login from './pages/Authentication/Login';
-
+import { getUserThunk, setIsAuthenticated } from './slice/userSlice';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 function App() {
+
+  const dispatch = useDispatch()
+  useEffect(()=> {
+    const token = localStorage.getItem("authToken")
+    if(token === "" || token === " " || token === undefined || token === null) {
+      dispatch(setIsAuthenticated(false))
+    }
+    else {
+      dispatch(getUserThunk())
+    }
+  },[])
   return (
     <>
       <BrowserRouter>
