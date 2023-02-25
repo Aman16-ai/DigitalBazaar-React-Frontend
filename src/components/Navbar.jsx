@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import style from "./style/Navbar.module.css"
 import logo from "../static/logo.png"
 import ordericon from "../static/icons/ordericon.png"
@@ -7,11 +7,14 @@ import logouticon from "../static/icons/power-off.png"
 import cartIcon from "../static/icons/carticon.png"
 import notificationIcon from "../static/icons/notificationicon.png"
 import LoginModal from './LoginModal'
+import { useSelector } from 'react-redux'
 
 export default function () {
 
     const [openLoginModal,setOpenLoginModal] = useState(false)
+    const navigate = useNavigate()
 
+    const {user,isAuthenticated} = useSelector(state => state.user)
     const handleCloseLoginModal = () => {
         setOpenLoginModal(false)
     }
@@ -20,7 +23,8 @@ export default function () {
     }
     const handleLogout = ()=> {
         localStorage.removeItem("authToken")
-        Navigate("/login")
+        navigate("/")
+        window.location.reload()
     }
     return (
         <div className={style['container']}>
@@ -30,7 +34,7 @@ export default function () {
             <input type="text" name="search" id={style['search']} placeholder="Search for products, brands and more" />
             {!localStorage.getItem("authToken")?<button onClick={handleOpenLoginModal} id={style['logoutBtn']}>Login</button>:
             <div className={style['user']}>
-                <h6 id={style['username-heading']}>AMAN</h6>
+                <h6 id={style['username-heading']}>{user?.user?.username}</h6>
                 <div className={style['user-list-items']}>
                     <ul>
                         <li><Link style={{"textDecoration":"none","color":"black"}} to={"/myorders"}><img className={style['drop-down-icons']} src={ordericon}/>Orders</Link></li>
