@@ -6,7 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Home from './pages/Home';
 import SignUp from './pages/Authentication/SignUp';
 import Login from './pages/Authentication/Login';
-import { getUserThunk, setIsAuthenticated } from './slice/userSlice';
+import { getUserThunk, setIsAuthenticated } from './store/slice/userSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 function App() {
