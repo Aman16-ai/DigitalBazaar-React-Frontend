@@ -7,7 +7,7 @@ import style from "./style/LoginModal.module.css"
 import loginLogo from "../static/login_logo.png"
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginThunk, setCredentials } from '../slice/loginSlice';
+import { loginThunk, setCredentials } from '../store/slice/loginSlice';
 import { useNavigate } from 'react-router-dom';
 const modalStyle = {
   position: 'absolute',

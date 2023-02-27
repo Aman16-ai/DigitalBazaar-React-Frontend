@@ -32,7 +32,7 @@ export default function () {
             <h4 id={style['heading']}><Link to={"/"} style={{textDecoration:"none",color:"white"}}>DigitalBazaar</Link></h4>
             
             <input type="text" name="search" id={style['search']} placeholder="Search for products, brands and more" />
-            {!localStorage.getItem("authToken")?<button onClick={handleOpenLoginModal} id={style['logoutBtn']}>Login</button>:
+            {!isAuthenticated?<button onClick={handleOpenLoginModal} id={style['logoutBtn']}>Login</button>:
             <div className={style['user']}>
                 <h6 id={style['username-heading']}>{user?.user?.username}</h6>
                 <div className={style['user-list-items']}>

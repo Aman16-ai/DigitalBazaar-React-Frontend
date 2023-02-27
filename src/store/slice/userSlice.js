@@ -1,11 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { getUser } from "../services/authService";
+import { getUser } from "../../services/authService";
 
 export const getUserThunk = createAsyncThunk(("getUser/getUser"),async(thunkApi)=> {
     const result = await getUser()
     console.log(result)
-    if(result.success === true) {
+    if(!("user" in result.data)) {
+        return thunkApi.rejectWithValue()
+    }
+    else if(result.success === true) {
         return result.data.user
     }
     else {
