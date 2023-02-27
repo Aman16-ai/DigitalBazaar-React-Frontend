@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch()
   useEffect(()=> {
     const token = localStorage.getItem("authToken")
-    if(token === "" || token === " " || token === undefined || token === null) {
+    if(token === "" || token === " " || token === undefined || token === null || token === "null") {
       dispatch(setIsAuthenticated(false))
     }
     else {
