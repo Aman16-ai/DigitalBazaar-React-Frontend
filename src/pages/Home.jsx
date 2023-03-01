@@ -4,22 +4,19 @@ import style from "./Style/Home.module.css"
 import { fetchAllCategroies, getAllProducts } from '../services/productService'
 import { getUser } from '../services/authService'
 import MainCarousel from '../components/MainCarousel'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllCategroiesThunk } from '../store/slice/categorySlice'
 export default function Home() {
-  const [categories,setCategories] = useState([])
+  const categories = useSelector(state => state.categories.categories)
+  const dispatch = useDispatch()
   useEffect(()=> {
-    (async function() {
-      const result = await fetchAllCategroies()
-      console.log(result)
-      if(result.success === true) {
-        setCategories(result.categories)
-      }
-    })()
+    dispatch(fetchAllCategroiesThunk())
   },[])
   return (
     <div>
       <div className={style["categories-container"]}>
         {categories.map((category)=> {
-          return <CategoryCard name={category.name} img={category.img} />
+          return <CategoryCard key={category.id} name={category.name} img={category.img} />
         })}
       </div>
       <div style={{width:"100%",height:"400px",marginTop:"10px",padding:'10px'}}>
