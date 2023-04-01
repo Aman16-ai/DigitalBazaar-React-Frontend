@@ -12,11 +12,12 @@ export const fetchAllCategroies = async()=> {
     }
 }
 
-export const getAllProducts = async()=> {
+export const getProducts = async(query)=> {
     try {
-        const response = await fetch(BASE_URL);
+        const url = !query?BASE_URL:BASE_URL+query
+        console.log("get products url",url)
+        const response = await fetch(url);
         const data = await response.json();
-        console.log(data)
         return {success:true,data}
     }
     catch(err) {

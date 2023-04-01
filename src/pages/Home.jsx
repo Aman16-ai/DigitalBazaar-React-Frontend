@@ -6,12 +6,21 @@ import { getUser } from '../services/authService'
 import MainCarousel from '../components/MainCarousel'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllCategroiesThunk } from '../store/slice/categorySlice'
+import { getAllProductsThunk, getMensWearProductsThunk } from '../store/slice/productSlice'
+import ProductCard from '../components/ProductCard'
+import ProductCarousel from '../components/ProductCarousel'
 export default function Home() {
   const categories = useSelector(state => state.categories.categories)
+  const {mensWearProducts} = useSelector(state => state.products)
   const dispatch = useDispatch()
   useEffect(()=> {
     dispatch(fetchAllCategroiesThunk())
+    dispatch(getMensWearProductsThunk("Men's wear"))
   },[])
+
+  useEffect(()=> {
+    console.log("Product --> ",mensWearProducts)
+  },[mensWearProducts])
   return (
     <div>
       <div className={style["categories-container"]}>
@@ -21,6 +30,10 @@ export default function Home() {
       </div>
       <div style={{width:"100%",height:"400px",marginTop:"10px",padding:'10px'}}>
         <MainCarousel/>
+      </div>
+      <div style={{width:"100%",height:"400px",marginTop:"10px",padding:'10px'}}>
+        <h2>Mens' Wears</h2>
+        <ProductCarousel products={mensWearProducts}/>
       </div>
     </div>
   )
