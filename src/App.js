@@ -9,6 +9,7 @@ import Login from './pages/Authentication/Login';
 import { getUserThunk, setIsAuthenticated } from './store/slice/userSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Product from './pages/Product';
 function App() {
 
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<SignUp/>}/>
+          <Route path='/product/:id' element={<Product/>}/>
         </Routes>
       </BrowserRouter>
     </>

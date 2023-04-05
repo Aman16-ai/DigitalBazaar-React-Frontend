@@ -10,7 +10,7 @@ export default function ProductCarousel(props) {
         infinite: true,
         speed: 500,
         autoplay:true,
-        slidesToShow: 1,
+        slidesToShow: 4,
         slidesToScroll: 1
     };
     return (
@@ -18,8 +18,8 @@ export default function ProductCarousel(props) {
             <Slider {...settings}>
                {
                 products.map((product)=> {
-                    return <div>
-                        <ProductCard title={product.title} discount={product.discount} price={product.getFinalPrice} image={product.product_img} />
+                    return <div style={{marginRight:"25px"}}>
+                        <ProductCard product_id={product.id} title={product.title} discount={product.discount} price={product.getFinalPrice} image={product.product_img} />
                     </div>
                 }) 
                }

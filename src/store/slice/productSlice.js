@@ -12,9 +12,10 @@ export const getAllProductsThunk = createAsyncThunk(("getProduct/getProduct"),as
     }
 })
 export const getMensWearProductsThunk = createAsyncThunk(("getMensProducts/getMensProducts"),async(category,thunkApi)=> {
-    const result = await getProducts(`?category=${category}`)
-    if(result.success && "products" in result.data) {
-        return result.data.products
+    const result = await getProducts(`?category__name=${category}`)
+    console.log("redux "+result)
+    if(result.success && "data" in result) {
+        return result.data
     }
     else {
         return thunkApi.rejectWithValue();
