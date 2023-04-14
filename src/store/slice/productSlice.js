@@ -11,7 +11,18 @@ export const getAllProductsThunk = createAsyncThunk(("getProduct/getProduct"),as
         return thunkApi.rejectWithValue();
     }
 })
-export const getMensWearProductsThunk = createAsyncThunk(("getMensProducts/getMensProducts"),async(category,thunkApi)=> {
+export const getLaptopProductsThunk = createAsyncThunk(("getLaptopProducts/getLaptopProducts"),async(category,thunkApi)=> {
+    const result = await getProducts(`?category__name=${category}`)
+    console.log("redux "+result)
+    if(result.success && "data" in result) {
+        return result.data
+    }
+    else {
+        return thunkApi.rejectWithValue();
+    }
+})
+
+export const getMensProductThunk = createAsyncThunk(("getMensProduct/getMensProduct"),async(category,thunkApi)=> {
     const result = await getProducts(`?category__name=${category}`)
     console.log("redux "+result)
     if(result.success && "data" in result) {
@@ -24,11 +35,12 @@ export const getMensWearProductsThunk = createAsyncThunk(("getMensProducts/getMe
 
 const initialState = {
     products:[],
+    laptopDeals:[],
     mensWearProducts :[],
     topProducts:[],
 }
 
-export const productSlice = createSlice({
+export const productsSlice = createSlice({
     name:"products",
     initialState,
     extraReducers : {
@@ -38,15 +50,20 @@ export const productSlice = createSlice({
         [getAllProductsThunk.rejected] : (state,action) => {
            state.products = []
         },
-        [getMensWearProductsThunk.fulfilled] : (state,action) => {
-            console.log("promise mens wear",action.payload)
+        [getLaptopProductsThunk.fulfilled] : (state,action) => {
+            state.laptopDeals = action.payload
+        },
+        [getLaptopProductsThunk.rejected] : (state,action) => {
+            state.laptopDeals = []
+        },
+        [getMensProductThunk.fulfilled] : (state,action) => {
             state.mensWearProducts = action.payload
         },
-        [getMensWearProductsThunk.rejected] : (state,action) => {
+        [getMensProductThunk.rejected] : (state,action) => {
             state.mensWearProducts = []
         }
     }
 })
 
 
-export default productSlice.reducer
+export default productsSlice.reducer

@@ -11,7 +11,7 @@ export default function ProductCard(props) {
             <div className={style["discount-percentage"]}>{discount}% off</div>
             <img src={`${image}`} alt="Product image" />
             <div className={style["product-details"]}>
-                <div className={style["product-name"]}>{trunchatesChar(title,50)}</div>
+                <div className={style["product-name"]}>{title}</div>
                 <div className={style["product-price"]}>₹{price}</div>
                 <Link style={{textDecoration:'none'}} to={`/product/${product_id}`}><button className={style["buy-now-btn"]}>Buy Now</button></Link>
             </div>

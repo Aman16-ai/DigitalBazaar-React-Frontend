@@ -1,5 +1,5 @@
 .container {
-    width: 100%;
+    width: 100vw;
     height: 9vh;
     display: flex;
     background-color: #2874F0;
