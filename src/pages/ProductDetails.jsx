@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import style from "./Style/Product.module.css"
 import { getProductById } from '../store/slice/product/productSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView'
+import { Button, Stack } from '@mui/material'
+import { addItemToCartThunk } from '../store/slice/cart/cartSlice'
 export default function ProductDetails() {
   const { id } = useParams()
   const dispatch = useDispatch()
@@ -11,12 +13,22 @@ export default function ProductDetails() {
   useEffect(()=> {
     dispatch(getProductById(id))
   },[])
+
+  const handleAddItemToCart = async()=> {
+    console.log("adding item cart btn")
+    const item = {"product_id":id,"quantity":1}
+    console.log(item)
+    dispatch(addItemToCartThunk(item))
+  }
   return (
     <>
       <div className={style["product-container"]}>
         <div className={style["left"]}>
           <img src={product?.product_img} alt=""/>
-            {/* <a href="/mycart/addToCart/{{product.id}}" style="width:20rem; height:3rem; margin-left:80px; font-size:1.2rem; font-weight:bolder; margin-top:20px" className={style["btn btn-danger"]}>Add to cart</a> */}
+          <Stack style={{width:"80%",marginTop:"5%"}} direction={'row'}>
+          <Button variant='contained' onClick={handleAddItemToCart} style={{fontWeight:"bold",backgroundColor:"#ff9f00",boxShadow:"0 1px 2px 0 rgba(0,0,0,.2)",marginRight:"20px"}} className={style["additembtn"]}>Add to cart</Button>
+          <Button variant='contained' style={{fontWeight:"bold",backgroundColor:"#fb641b",boxShadow:"0 1px 2px 0 rgba(0,0,0,.2)"}} className={style["additembtn"]}>Buy Now</Button>
+          </Stack>
         </div>
         <div className={style["right"]}>
           <h6 id={style["product-title"]}>{product?.title}</h6>

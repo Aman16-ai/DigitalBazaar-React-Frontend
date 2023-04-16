@@ -1,101 +1,98 @@
 .container {
-    width: 100vw;
-    height: 9vh;
-    display: flex;
-    background-color: #2874F0;
+  width: 100vw;
+  height: 9vh;
+  display: flex;
+  background-color: #2874f0;
 }
 
 #heading {
-    color: white;
-    align-self: center;
-    margin-left: 12vw;
-    margin-right: 10px;
+  color: white;
+  align-self: center;
+  margin-left: 12vw;
+  margin-right: 10px;
 }
 
 #search {
-    border: none;
-    width: 35vw;
-    height: 6vh;
-    align-self: center;
-    background-color: white;
-    border-radius: 2px;
-    padding-left: 20px;
+  border: none;
+  width: 35vw;
+  height: 6vh;
+  align-self: center;
+  background-color: white;
+  border-radius: 2px;
+  padding-left: 20px;
 }
 
 #username-heading {
-    color: white;
-    margin-left: 10px;
-    cursor: pointer;
-    margin-top: 20px;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .user {
-    display: inline-block;
+  display: inline-block;
 
-    position: relative;
-    margin-left: 10px;
-    height: 100%;
+  position: relative;
+  margin-left: 10px;
+  height: 100%;
 }
 
 .user-list-items {
-    width: 200px;
-    position: absolute;
-    background-color: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    z-index: 1;
-    display: none;
-    cursor: pointer;
-    /* transition-delay: 5s; */
-    /* margin-top: 15px; */
+  width: 200px;
+  position: absolute;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 1;
+  display: none;
+  cursor: pointer;
+  /* transition-delay: 5s; */
+  /* margin-top: 15px; */
 }
 
 .user:hover .user-list-items {
-    display: block;
-    
-
+  display: block;
 }
 #search:focus {
-    outline-style: none;
-    box-shadow: none;
+  outline-style: none;
+  box-shadow: none;
 }
 
 .user-list-items ul {
-    list-style: none;
-    
+  list-style: none;
 }
 .user-list-items ul li {
-    margin-top: 10px;
-    margin-right: 20px;
+  margin-top: 10px;
+  margin-right: 20px;
 }
 .drop-down-icons {
-    width: 20px;
-    margin-right: 10px;
+  width: 20px;
+  margin-right: 10px;
 }
 
 .nav-icons {
-    width: 20px;
-    margin-right: 5px;
+  width: 20px;
+  margin-right: 5px;
 }
 
 .links {
-    align-self: center;
-    color: white;
-    text-decoration: none;
-    margin-left: 50px;
-    font-weight: 600;
+  align-self: center;
+  color: white;
+  text-decoration: none;
+  margin-left: 50px;
+  font-weight: 600;
 }
 .links :hover {
-    color: white;
+  color: white;
 }
 
 #logoutBtn {
-    width: 8vw;
-    height: 5vh;
-    align-self: center;
-    margin-left: 15px;
-    background-color: white;
-    color: #2874F0;
-    border: none;
-    font-weight: bold;
-    border-radius: 2px;
+  width: 8vw;
+  height: 5vh;
+  align-self: center;
+  margin-left: 15px;
+  background-color: white;
+  color: #2874f0;
+  border: none;
+  font-weight: bold;
+  border-radius: 2px;
 }
