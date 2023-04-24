@@ -30,7 +30,7 @@ export const addItemToCart = async (item) => {
 
     const data = await response.json();
     console.log("add item service data", data);
-    return { success: true, data };
+    return { success: true, data: data?.Response };
   } catch (err) {
     return { success: false };
   }

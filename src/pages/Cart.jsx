@@ -12,7 +12,7 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
-    dispatch(getUserCartThunk());
+    // dispatch(getUserCartThunk());
     dispatch(getCartItemsThunk());
   }, []);
 

@@ -19,9 +19,11 @@ export const getUserCartThunk = createAsyncThunk(
 export const addItemToCartThunk = createAsyncThunk(
   "addItemToCart/addItemToCart",
   async (item, thunkApi) => {
+    const product = item["product"];
+    delete item["product"];
     const result = await addItemToCart(item);
     if (result.success === true) {
-      return result.Response;
+      return { Response: result.data, Product: product };
     }
     return thunkApi.rejectWithValue();
   }
@@ -64,7 +66,13 @@ const cartSlice = createSlice({
     },
     [addItemToCartThunk.fulfilled]: (state, action) => {
       if (state.user_cart !== null) {
-        // todo : update the cart value
+        const product = action.payload.Product;
+        console.log("add item reducer product :", product);
+        const updated_cart = { ...state.user_cart };
+        updated_cart.getCartTotalItems += 1;
+        updated_cart.getCartTotal += product.getFinalPrice;
+        updated_cart.getCartOriginalPrice += product.price;
+        state.user_cart = updated_cart;
       }
     },
   },
