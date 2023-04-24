@@ -7,7 +7,7 @@ export default function CategoryCard(props) {
   const {name,img} = props
   return (
     <div className={style['info']}>
-        <img src={SERVER_URL+img}/>
+        <img src={img}/>
         <Link style={{color:"black",textDecoration:'none'}}>{name}</Link>
     </div>
   )

@@ -5,18 +5,21 @@ export const fetchAllCategroies = async()=> {
         const url = `${BASE_URL}/categories/`
         const response =await fetch(url)
         const data = await response.json();
-        return {success:true,categories:data?.allCategories}
+        console.log(data)
+        return {success:true,categories:data}
     }
     catch(err) {
         return {success:false,err}
     }
 }
 
-export const getAllProducts = async()=> {
+export const getProducts = async(query)=> {
     try {
-        const response = await fetch(BASE_URL);
+        const url = !query?BASE_URL:BASE_URL+query
+        console.log("get products url",url)
+        const response = await fetch(url);
         const data = await response.json();
-        console.log(data)
+        console.log("product data",data)
         return {success:true,data}
     }
     catch(err) {
