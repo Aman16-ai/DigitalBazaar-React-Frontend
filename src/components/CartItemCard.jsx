@@ -35,19 +35,23 @@ import testimg from "../static/flipmob.webp";
 
 import React, { useEffect, useState } from "react";
 import { SERVER_URL } from "../config";
-const CartItemCard = ({ title, price, imageurl, quantity }) => {
+import { useDispatch } from "react-redux";
+import { incrementCartItemQuantityThunk } from "../store/slice/cart/cartSlice";
+const CartItemCard = ({ cartItemId,title, price, imageurl, quantity }) => {
   const [quantityCount, setQuantityCount] = useState(1);
-
+  const dispatch = useDispatch()
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
       setQuantityCount(quantity - 1);
     }
   };
 
-  const handleIncreaseQuantity = () => {
-    if (quantity < 100) {
-      setQuantityCount(quantity + 1);
-    }
+  const handleIncreaseQuantity = async() => {
+    // if (quantity < 100) {
+    //   setQuantityCount(quantity + 1);
+    // }
+    const payload = {"cartItemId":cartItemId,"quantity":1}
+    dispatch(incrementCartItemQuantityThunk(payload))
   };
 
   useEffect(() => {
