@@ -54,3 +54,23 @@ export const getCartItems = async () => {
     return { success: false };
   }
 };
+
+export const incrementCartItemQuantity = async(cartItemId,quantity) => {
+  try {
+    const url = `${BASE_URL}cart/incrementQuantity/${cartItemId}/`
+    const response = await fetch(url,{
+      method:"POST",
+      headers : {
+        "content-type":"application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body : JSON.stringify({"quantity":quantity})
+    })
+    const data = await response.json()
+    console.log("CartItem increment ---->",data)
+    return {success:true,data}
+  }
+  catch(err) {
+    return {success:false}
+  }
+}

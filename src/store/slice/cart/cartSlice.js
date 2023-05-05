@@ -4,6 +4,7 @@ import {
   getUserCart,
   addItemToCart,
   getCartItems,
+  incrementCartItemQuantity,
 } from "../../../services/cartService";
 
 export const getUserCartThunk = createAsyncThunk(
@@ -41,6 +42,14 @@ export const getCartItemsThunk = createAsyncThunk(
   }
 );
 
+export const incrementCartItemQuantityThunk = createAsyncThunk("incrementCartItemQuantity/incrementCartItemQuantity",async(payload,thunkApi)=> {
+  const result = await incrementCartItemQuantity(payload.cartItemId,payload.quantity)
+  if (result.success === true) {
+    return {"Reponse":result.data,"cartItemId":payload.cartItemId,"quantity":payload.quantity}
+  }
+  return thunkApi.rejectWithValue();
+})
+
 const initialState = {
   user_cart: null,
   loaded: false,
@@ -75,6 +84,15 @@ const cartSlice = createSlice({
         state.user_cart = updated_cart;
       }
     },
+    [incrementCartItemQuantityThunk.fulfilled] : (state,action) => {
+      const cartitems = [...state.cartItems]
+      for(let i =0;i<cartitems.length;i++) {
+        if(cartitems[i].id === action.payload.cartItemId) {
+          cartitems[i].quantity += 1
+        }
+      }
+      state.cartItems = cartitems
+    }
   },
 });
 

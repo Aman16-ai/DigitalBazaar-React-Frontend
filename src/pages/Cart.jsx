@@ -32,6 +32,7 @@ export default function Cart() {
                 }}
               >
                 <CartItemCard
+                  cartItemId={item.id}
                   title={item.product.title}
                   price={item.product.price}
                   imageurl={item.product.product_img}
