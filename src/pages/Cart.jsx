@@ -6,6 +6,8 @@ import {
   getCartItemsThunk,
 } from "../store/slice/cart/cartSlice";
 import CartItemCard from "../components/CartItemCard";
+import { Button, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 export default function Cart() {
   const dispatch = useDispatch();
   const user_cart = useSelector((state) => state.cart.user_cart);
@@ -25,7 +27,7 @@ export default function Cart() {
               <div
                 style={{
                   width: "100%",
-                  height: "35%",
+                  height: "auto",
                   border: "1px solid grey",
                   padding: "10px",
                   marginTop: "5px",
@@ -37,6 +39,8 @@ export default function Cart() {
                   price={item.product.price}
                   imageurl={item.product.product_img}
                   quantity={item.quantity}
+                  discount={item.product.discount}
+                  finalPrice={item.product.getFinalPrice}
                 />
               </div>
             );
@@ -71,6 +75,9 @@ export default function Cart() {
               ₹{user_cart?.getCartTotal.toLocaleString("en-IN")}
             </p>
           </div>
+          <Stack style={{width:"100%",height:"auto",marginTop:"10px",display:"flex",alignItems:"center"}} direction={'column'}>
+            <Link style={{width:"90%",height:"50px"}} to={"/checkout"}><Button style={{width:"100%",height:"50px"}} variant="contained">Checkout</Button></Link>
+          </Stack>
         </div>
       </div>
     </>

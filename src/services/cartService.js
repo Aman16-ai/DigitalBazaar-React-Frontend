@@ -55,22 +55,42 @@ export const getCartItems = async () => {
   }
 };
 
-export const incrementCartItemQuantity = async(cartItemId,quantity) => {
+export const incrementCartItemQuantity = async (cartItemId, quantity) => {
   try {
     const url = `${BASE_URL}cart/incrementQuantity/${cartItemId}/`
-    const response = await fetch(url,{
-      method:"POST",
-      headers : {
-        "content-type":"application/json",
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
-      body : JSON.stringify({"quantity":quantity})
+      body: JSON.stringify({ "quantity": quantity })
     })
     const data = await response.json()
-    console.log("CartItem increment ---->",data)
-    return {success:true,data}
+    console.log("CartItem increment ---->", data)
+    return { success: true, data }
   }
-  catch(err) {
-    return {success:false}
+  catch (err) {
+    return { success: false }
+  }
+}
+
+export const decrementCartItemQuantity = async (cartItemId, quantity) => {
+  try {
+    const url = `${BASE_URL}cart/decrementQuantity/${cartItemId}/`
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify({ "quantity": quantity })
+    })
+    const data = await response.json()
+    console.log("CartItem decrement ---->", data)
+    return { success: true, data }
+  }
+  catch (err) {
+    return { success: false }
   }
 }
