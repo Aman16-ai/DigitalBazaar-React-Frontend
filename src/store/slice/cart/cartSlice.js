@@ -5,7 +5,9 @@ import {
   addItemToCart,
   getCartItems,
   incrementCartItemQuantity,
+  decrementCartItemQuantity,
 } from "../../../services/cartService";
+import { updateUserCart } from "../../../utility/cartUtils";
 
 export const getUserCartThunk = createAsyncThunk(
   "getUserCart/getUserCart",
@@ -42,13 +44,22 @@ export const getCartItemsThunk = createAsyncThunk(
   }
 );
 
-export const incrementCartItemQuantityThunk = createAsyncThunk("incrementCartItemQuantity/incrementCartItemQuantity",async(payload,thunkApi)=> {
-  const result = await incrementCartItemQuantity(payload.cartItemId,payload.quantity)
+export const incrementCartItemQuantityThunk = createAsyncThunk("incrementCartItemQuantity/incrementCartItemQuantity", async (payload, thunkApi) => {
+  const result = await incrementCartItemQuantity(payload.cartItemId, payload.quantity)
   if (result.success === true) {
-    return {"Reponse":result.data,"cartItemId":payload.cartItemId,"quantity":payload.quantity}
+    return { "Reponse": result.data, "cartItemId": payload.cartItemId, "quantity": payload.quantity }
   }
   return thunkApi.rejectWithValue();
 })
+
+export const decrementCartItemQuantityThunk = createAsyncThunk("decrementCartItemQuantity/decrementCartItemQuantity", async (payload, thunkApi) => {
+  const result = await decrementCartItemQuantity(payload.cartItemId, payload.quantity)
+  if (result.success === true) {
+    return { "Reponse": result.data, "cartItemId": payload.cartItemId, "quantity": payload.quantity }
+  }
+  return thunkApi.rejectWithValue();
+})
+
 
 const initialState = {
   user_cart: null,
@@ -78,20 +89,50 @@ const cartSlice = createSlice({
         const product = action.payload.Product;
         console.log("add item reducer product :", product);
         const updated_cart = { ...state.user_cart };
-        updated_cart.getCartTotalItems += 1;
-        updated_cart.getCartTotal += product.getFinalPrice;
-        updated_cart.getCartOriginalPrice += product.price;
-        state.user_cart = updated_cart;
+        state.user_cart = updateUserCart(updated_cart,product,true)
       }
     },
-    [incrementCartItemQuantityThunk.fulfilled] : (state,action) => {
-      const cartitems = [...state.cartItems]
-      for(let i =0;i<cartitems.length;i++) {
-        if(cartitems[i].id === action.payload.cartItemId) {
-          cartitems[i].quantity += 1
+    [incrementCartItemQuantityThunk.fulfilled]: (state, action) => {
+      console.log("Inside incrementCartItemThunk", action.payload)
+      const response = action.payload.Reponse
+      if (response.status === true) {
+        const cartitems = [...state.cartItems]
+
+        //updating the quantity of cart item
+        for (let i = 0; i < cartitems.length; i++) {
+          if (cartitems[i].id === action.payload.cartItemId) {
+            cartitems[i].quantity += 1
+          }
         }
+
+        //updating the user cart
+        const product = response.Reponse.product
+        const updated_cart = {...state.user_cart};
+        state.user_cart = updateUserCart(updated_cart,product,true);
+
+        state.cartItems = cartitems
       }
-      state.cartItems = cartitems
+    },
+    [decrementCartItemQuantityThunk.fulfilled]: (state, action) => {
+      console.log("Inside decrementCartItemThunk", action.payload)
+      const response = action.payload.Reponse
+      if (response.status === true) {
+        const cartitems = [...state.cartItems]
+
+        //updating the quantity of cart item
+        for (let i = 0; i < cartitems.length; i++) {
+          if (cartitems[i].id === action.payload.cartItemId) {
+            cartitems[i].quantity -= 1
+          }
+        }
+
+        //updating the user cart
+        const product = response.Reponse.product
+        const updated_cart = {...state.user_cart};
+        state.user_cart = updateUserCart(updated_cart,product,false);
+
+        state.cartItems = cartitems
+      }
     }
   },
 });

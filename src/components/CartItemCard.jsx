@@ -1,49 +1,15 @@
-// import React from "react";
-// import style from "./style/CartItem.module.css";
 import testimg from "../static/flipmob.webp";
-// export default function CartItemCard() {
-//   return (
-//     <>
-//       <div className={style["cart-item-card"]}>
-//         <div className={style["item-image"]}>
-//           <img src={testimg} alt="Product Image" />
-//         </div>
-//         <div className={style["item-details"]}>
-//           <h3>Product Name</h3>
-//           <p className={style["item-price"]}>$99.99</p>
-//           <div className={style["quantity"]}>
-//             <button className={style["quantity-btn minus-btn"]} type="button">
-//               -
-//             </button>
-//             <input
-//               className={style["quantity-input"]}
-//               type="number"
-//               min="1"
-//               max="100"
-//               defaultValue={1}
-//             />
-//             <button className={style["quantity-btn plus-btn"]} type="button">
-//               +
-//             </button>
-//           </div>
-//           <button className={style["remove-btn"]}>Remove</button>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
 import React, { useEffect, useState } from "react";
 import { SERVER_URL } from "../config";
 import { useDispatch } from "react-redux";
-import { incrementCartItemQuantityThunk } from "../store/slice/cart/cartSlice";
-const CartItemCard = ({ cartItemId,title, price, imageurl, quantity }) => {
+import { decrementCartItemQuantityThunk, incrementCartItemQuantityThunk } from "../store/slice/cart/cartSlice";
+import { Stack } from "@mui/material";
+const CartItemCard = ({ cartItemId,title, price, imageurl, quantity,finalPrice,discount }) => {
   const [quantityCount, setQuantityCount] = useState(1);
   const dispatch = useDispatch()
   const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantityCount(quantity - 1);
-    }
+    const payload = {"cartItemId":cartItemId,"quantity":1}
+    dispatch(decrementCartItemQuantityThunk(payload))
   };
 
   const handleIncreaseQuantity = async() => {
@@ -84,12 +50,26 @@ const CartItemCard = ({ cartItemId,title, price, imageurl, quantity }) => {
         >
           {title}
         </h3>
+        <Stack direction={"row"}>
         <p
           className="item-price"
           style={{ fontSize: "1rem", fontWeight: "bold", marginBottom: "10px" }}
         >
-          ${price}
+          ₹{finalPrice.toLocaleString('en-in')}
         </p>
+        <p
+          className="item-price"
+          style={{ fontSize: "1rem", marginBottom: "10px",marginLeft:"15px" }}
+        >
+          <del>₹{price.toLocaleString('en-in')}</del>
+        </p>
+        <p
+          className="item-price"
+          style={{ fontSize: "1rem", marginBottom: "10px",marginLeft:"15px",color:"green" }}
+        >
+          {discount}% Off
+        </p>
+        </Stack>
         <div
           className="quantity-container"
           style={{
@@ -171,6 +151,9 @@ const CartItemCard = ({ cartItemId,title, price, imageurl, quantity }) => {
         >
           Remove
         </button>
+      <div style={{width:"100%",height:"37%"}}>
+          <p style={{fontSize:"1.8rem",textAlign:"right"}}>SubTotal : {finalPrice.toLocaleString('en-in')} X {quantity} = ₹{(finalPrice * quantity).toLocaleString('en-in')}</p>
+      </div>
       </div>
     </div>
   );

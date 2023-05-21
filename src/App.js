@@ -13,6 +13,7 @@ import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
 import UserNotFound from "./pages/UserNotFound";
 import { getUserCartThunk } from "./store/slice/cart/cartSlice";
+import Checkout from "./pages/Checkout";
 function App() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -44,6 +45,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/checkout" element={<Checkout/>} />
           <Route
             path="/cart"
             element={
