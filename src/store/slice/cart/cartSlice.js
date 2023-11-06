@@ -137,4 +137,5 @@ const cartSlice = createSlice({
   },
 });
 
+export const selectUserCart = (state) => state.cart.user_cart
 export default cartSlice.reducer;
