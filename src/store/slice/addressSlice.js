@@ -24,6 +24,7 @@ export const addressSlice = createSlice({
     extraReducers:{
         [getAllUserAddressThunk.fulfilled] : (state,action) => {
             console.log("thunk api address ------>",action.payload)
+            state.userAddress = action.payload
         }
     }
 })
