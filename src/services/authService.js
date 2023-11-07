@@ -1,9 +1,9 @@
-const BASE_URL = "http://127.0.0.1:8000/api/account"
-
+// const BASE_URL = "http://127.0.0.1:8000/api/account"
+import { BASE_URL } from "../config"
 export const register = async(credentials)=> {
     try {
         console.log("running register service")
-        const url = `${BASE_URL}/register`
+        const url = `${BASE_URL}/account/register`
         const response = await fetch(url,{
             method:'POST',
             headers: {
@@ -22,7 +22,7 @@ export const register = async(credentials)=> {
 
 export const loginUser = async(credentials) => {
     try {
-        const url = `${BASE_URL}/login`
+        const url = `${BASE_URL}/account/login`
         const response = await fetch(url,{
             method:"POST",
             headers : {
@@ -46,7 +46,7 @@ export const loginUser = async(credentials) => {
 
 export const getUser = async()=> {
     try {
-        const url = `${BASE_URL}/getUser`
+        const url = `${BASE_URL}/account/getUser`
         const response = await fetch(url, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("authToken")}`

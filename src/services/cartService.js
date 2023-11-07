@@ -1,8 +1,8 @@
-const BASE_URL = "http://127.0.0.1:8000/api/";
-
+// const BASE_URL = "http://127.0.0.1:8000/api/";
+import { BASE_URL } from "../config"
 export const getUserCart = async () => {
   try {
-    const url = BASE_URL + "cart";
+    const url = BASE_URL + "/" + "cart";
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -18,7 +18,7 @@ export const getUserCart = async () => {
 
 export const addItemToCart = async (item) => {
   try {
-    const url = `${BASE_URL}cart/addItemToCart/`;
+    const url = `${BASE_URL}/cart/addItemToCart/`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -38,7 +38,7 @@ export const addItemToCart = async (item) => {
 
 export const getCartItems = async () => {
   try {
-    const url = `${BASE_URL}cart/getUserCartItems/`;
+    const url = `${BASE_URL}/cart/getUserCartItems/`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -57,7 +57,7 @@ export const getCartItems = async () => {
 
 export const incrementCartItemQuantity = async (cartItemId, quantity) => {
   try {
-    const url = `${BASE_URL}cart/incrementQuantity/${cartItemId}/`
+    const url = `${BASE_URL}/cart/incrementQuantity/${cartItemId}/`
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -77,7 +77,7 @@ export const incrementCartItemQuantity = async (cartItemId, quantity) => {
 
 export const decrementCartItemQuantity = async (cartItemId, quantity) => {
   try {
-    const url = `${BASE_URL}cart/decrementQuantity/${cartItemId}/`
+    const url = `${BASE_URL}/cart/decrementQuantity/${cartItemId}/`
     const response = await fetch(url, {
       method: "POST",
       headers: {
