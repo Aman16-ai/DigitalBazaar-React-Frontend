@@ -1,5 +1,5 @@
-// const BASE_URL = "http://127.0.0.1:8000/api/account"
-import { BASE_URL } from "../config"
+const BASE_URL = "http://127.0.0.1:8000/api"
+// import { BASE_URL } from "../config"
 export const register = async(credentials)=> {
     try {
         console.log("running register service")
