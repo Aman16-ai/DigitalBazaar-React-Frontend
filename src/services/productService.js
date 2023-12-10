@@ -1,5 +1,5 @@
-// const BASE_URL = "http://127.0.0.1:8000/api/product"
-import { BASE_URL } from "../config"
+const BASE_URL = "http://127.0.0.1:8000/api"
+// import { BASE_URL } from "../config"
 export const fetchAllCategroies = async()=> {
     try {
         const url = `${BASE_URL}/product/categories/`

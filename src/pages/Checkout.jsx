@@ -12,7 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserAddressThunk } from "../store/slice/addressSlice";
-import { placeOrderService } from "../services/checkoutService";
+import { createOrderIdService, placeOrderService } from "../services/checkoutService";
 import { selectUserCart } from "../store/slice/cart/cartSlice";
 import useRazorpay from "react-razorpay";
 export default function Checkout() {
@@ -27,19 +27,22 @@ export default function Checkout() {
     dispatch(getAllUserAddressThunk());
   }, []);
 
-  const handlePlaceOrderbtn = async () => {
-    const order = { address: addressId };
+  const placeOrder = async (orderId) => {
+    const order = { address: addressId,online_payment_order_id:orderId };
     const items = [];
     cartItems.map((item) => {
       items.push(item.id);
     });
     order["items"] = items;
-    console.log("your order", order);
     const result = await placeOrderService(order);
     console.log("place holder result ------------>", result);
+  }
+  const handlePlaceOrderbtn = async () => {
+    const result = await createOrderIdService({'amount':userCart.getCartTotal});
+    console.log("place holder result ------------>", result);
     if (result?.success === true) {
-      const order_id = result?.data?.Response.online_payment_order_id;
-      const amount = result?.data?.Response.get_total;
+      const order_id = result?.data?.Response.OrderId;
+      const amount = userCart.getCartTotal
 
       try {
         const options = {
@@ -50,19 +53,21 @@ export default function Checkout() {
           description: "Test Transaction",
           image: "https://example.com/your_logo",
           order_id: order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
-          handler: function (response) {
+          handler: async function (response) {
             //complete order
             // complete_order(
             //   response.razorpay_payment_id,
             //   response.razorpay_order_id,
             //   response.razorpay_signature
             // );
+            alert('running handler')
+            await placeOrder(order_id)
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
             alert(response.razorpay_signature);
           },
           prefill: {
-            name: "Piyush Garg",
+            name: "Aman saxena",
             email: "youremail@example.com",
             contact: "9999999999",
           },
