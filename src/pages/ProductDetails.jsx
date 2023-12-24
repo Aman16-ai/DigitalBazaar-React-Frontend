@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import style from "./Style/Product.module.css";
-import { getProductById } from "../store/slice/product/productSlice";
+import { clearState, getProductById } from "../store/slice/product/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import { Button, Stack } from "@mui/material";
@@ -12,6 +12,9 @@ export default function ProductDetails() {
   const product = useSelector((state) => state.product.product);
   useEffect(() => {
     dispatch(getProductById(id));
+    return ()=> {
+      dispatch(clearState())
+    }
   }, []);
 
   const handleAddItemToCart = async () => {
