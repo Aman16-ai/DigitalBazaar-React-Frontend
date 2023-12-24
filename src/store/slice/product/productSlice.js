@@ -20,6 +20,11 @@ const initialState = {
 export const productSlice = createSlice({
     name:"product",
     initialState:initialState,
+    reducers: {
+        clearState : (state,action) => {
+            state.product = {}
+        }
+    },
     extraReducers : {
         [getProductById.fulfilled] : (state,action) => {
             state.product = action.payload
@@ -30,4 +35,5 @@ export const productSlice = createSlice({
     }
 })
 
+export const {clearState} = productSlice.actions
 export default productSlice.reducer

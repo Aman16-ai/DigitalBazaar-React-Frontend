@@ -6,15 +6,15 @@ import ProductCard from './ProductCard';
 export default function ProductCarousel(props) {
     const {products} = props
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         autoplay:true,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1
     };
     return (
-        <div style={{width:"100%",height:"400px"}}>
+        <div style={{width:"100%",height:"auto",marginTop:"19px"}}>
             <Slider {...settings}>
                {
                 products.map((product)=> {

@@ -9,6 +9,7 @@ import { fetchAllCategroiesThunk } from '../store/slice/categorySlice'
 import { getAllProductsThunk, getLaptopProductsThunk, getMensProductThunk } from '../store/slice/productSlice'
 import ProductCard from '../components/ProductCard'
 import ProductCarousel from '../components/ProductCarousel'
+import ProductListContainer from '../components/ProductListContainer'
 export default function Home() {
   const categories = useSelector(state => state.categories.categories)
   const {laptopDeals,mensWearProducts} = useSelector(state => state.products)
@@ -32,14 +33,9 @@ export default function Home() {
       <div style={{width:"100%",height:"400px",marginTop:"10px",padding:'10px'}}>
         <MainCarousel/>
       </div>
-      <div style={{width:"100%",height:"400px",marginTop:"25px",padding:'10px'}}>
-        <h2>Hot Deals on Laptops</h2>
-        <ProductCarousel products={laptopDeals}/>
-      </div>
-      <div style={{width:"100%",height:"400px",marginTop:"35px",padding:'10px'}}>
-        <h2>Top Products for Mens</h2>
-        <ProductCarousel products={mensWearProducts}/>
-      </div>
+      <ProductListContainer products={laptopDeals} title={"Hot Deals on Laptops"}/>
+      <ProductListContainer products={mensWearProducts} title={"Top Products for Mens"}/>
+
     </div>
   )
 }

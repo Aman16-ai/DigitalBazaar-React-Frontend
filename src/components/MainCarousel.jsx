@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from 'react-slick';
-import flipmainOne from "../static/flipsale.jpg"
-import flipmainTwo from "../static/flipsale2.jpg"
+import flipmainOne from "../static/new1.jpg"
+import flipmainTwo from "../static/new3.jpeg"
 export default function MainCarousel() {
     const settings = {
         dots: true,
